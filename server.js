@@ -12,7 +12,12 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to the database.'))
 
-// Create route handlers
+// Body Parser Middleware
+app.use(express.json());
+
+// API Routes
+const predictions = require('./routes/predictions')
+app.use('/predictions', predictions)
 
 // Listen on a port
 const PORT = process.env.PORT || 5000;
