@@ -3,21 +3,18 @@ db.createCollection('predictions')
 
 db.predictions.insertMany([
 	{
-	 pred_id: 1,
 	 pred: 5512312.668179512,
 	 year: 2017,
 	 user: 'heidi',
 	 date: Date()
 	},
 	{
-	 pred_id: 2,
 	 pred: 5520059.578783035,
 	 year: 2018,
 	 user: 'heidi',
 	 date: Date()
 	},
 	{
-	 pred_id: 3,
 	 pred: 5524791.572716713,
 	 year: 2019,
 	 user: 'heidi',
