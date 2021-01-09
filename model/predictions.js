@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const predSchema = new mongoose.Schema({
-  pred_id: Number,
+  _id: String,
   pred: Number,
   year: Number,
   user: String,
-  date: Date.now
+  date: {type: Date, default: Date.now}
 });
 
 const predModel = mongoose.model('predictions', predSchema);
