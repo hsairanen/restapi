@@ -22,4 +22,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get the predictions of the given user
+router.get('/users/:user', async (req, res) => {
+    try {
+      const prediction = await predictionsDb.find({user: req.params.user});
+      if (prediction.length === 0) {
+        res.json({msg: 'User not found'});
+      } else {
+        res.json(prediction);
+      }
+    } catch (err) {
+      res.status(500).json({msg: 'Server error'});
+    }
+});
+
 module.exports = router;
