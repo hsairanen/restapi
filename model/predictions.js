@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const predSchema = new mongoose.Schema({
-  _id: String,
+  id: String,
   pred: Number,
   year: Number,
   user: String,
