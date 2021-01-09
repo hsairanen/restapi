@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
     const prediction = await predictionsDb.findById(req.params.id);
     res.json(prediction);
   } catch (err) {
-    res.status(400).json({msg: 'Invalid ID');
+    res.status(400).json({msg: 'Invalid ID'});
   }
 });
 
