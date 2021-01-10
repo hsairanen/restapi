@@ -60,10 +60,9 @@ router.post('/user/:user', async (req, res) => {
     const newPred = await pred.save();
     // Return the pred and the year, if an object is successfully created.
     res.status(201).json({pred: newPred.pred, year: newPred.year});
-
   } catch (err) {
     res.status(500).json({msg: 'Server error'});
   }
-})
+});
 
 module.exports = router;
