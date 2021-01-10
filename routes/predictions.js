@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Get the predictions of the given user
-router.get('/users/:user', async (req, res) => {
+router.get('/user/:user', async (req, res) => {
     try {
       const prediction = await predictionsDb.find({user: req.params.user});
       if (prediction.length === 0) {
