@@ -13,16 +13,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get a single prediction
-router.get('/:id', async (req, res) => {
-  try {
-    const prediction = await predictionsDb.findById(req.params.id);
-    res.json(prediction);
-  } catch (err) {
-    res.status(400).json({msg: 'Invalid ID'});
-  }
-});
-
 // Get the predictions of a user
 router.get('/user/:user', async (req, res) => {
     try {
@@ -64,5 +54,35 @@ router.post('/user/:user', async (req, res) => {
     res.status(500).json({msg: 'Server error'});
   }
 });
+
+// Delete a prediction
+router.delete('/user/:user/:id', async (req, res) => {
+  try {
+
+    const pred = await predictionsDb.findById({_id: req.params.id});
+
+    // Only the user who has made the prediction can delete it.
+    if(pred.user !== req.params.user || pred.length === 0) {
+      return res.json({msg: 'Prediction cannot not be found'});
+    }
+
+    // Remove the prediction
+    await pred.remove();
+
+    // Return the predictions left
+    const allPreds = await predictionsDb.find({user: req.params.user});
+
+    if(allPreds.length === 0) {
+      return res.json({msg: 'No predictions left'});
+    } else {
+      res.json(allPreds);
+    }
+
+  } catch (err) {
+    //res.status(400).json({msg: 'Prediction cannot not be found'});
+    res.status(500).json({msg: 'Server error'});
+  }
+});
+
 
 module.exports = router;
