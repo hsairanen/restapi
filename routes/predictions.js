@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 // Get the predictions of a user
 router.get('/user/:user', async (req, res) => {
     try {
-      const prediction = await predictionsDb.find({user: req.params.user});
+      const prediction = await predictionsDb.find({'user.name': req.params.user});
       if (prediction.length === 0) {
         res.json({msg: 'User not found'});
       } else {
@@ -26,6 +26,7 @@ router.get('/user/:user', async (req, res) => {
       res.status(500).json({msg: 'Server error'});
     }
 });
+
 
 // Create a prediction
 router.post('/user/:user', async (req, res) => {
@@ -43,7 +44,7 @@ router.post('/user/:user', async (req, res) => {
     const pred = new predictionsDb ({
         pred: statModel.polyRegModel(req.body.year),
         year: req.body.year,
-        user: req.params.user
+        'user.name': req.params.user
       });
 
     // Store into the database
@@ -55,6 +56,8 @@ router.post('/user/:user', async (req, res) => {
   }
 });
 
+
+
 // Delete a prediction
 router.delete('/user/:user/:id', async (req, res) => {
   try {
@@ -62,7 +65,7 @@ router.delete('/user/:user/:id', async (req, res) => {
     const pred = await predictionsDb.findById({_id: req.params.id});
 
     // Only the user who has made the prediction can delete it.
-    if(pred.user !== req.params.user || pred.length === 0) {
+    if(pred.user.name !== req.params.user || pred.length === 0) {
       return res.json({msg: 'Prediction cannot not be found'});
     }
 
