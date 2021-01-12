@@ -41,7 +41,7 @@ router.patch('/', async (req, res) => {
 // ROUTES FOR A USER
 
 // Get the predictions of a user
-router.get('/user/:user', async (req, res) => {
+router.get('/:user', async (req, res) => {
     try {
       const prediction = await predictionsDb.find({'user.name': req.params.user});
       if (prediction.length === 0) {
@@ -56,7 +56,7 @@ router.get('/user/:user', async (req, res) => {
 
 
 // Create a prediction
-router.post('/user/:user', async (req, res) => {
+router.post('/:user', async (req, res) => {
 
   // Avoid client error
   if (typeof req.body.year !== "number" || req.body.year <= 0 || req.body.year % 1 !== 0) {
@@ -86,7 +86,7 @@ router.post('/user/:user', async (req, res) => {
 
 
 // Delete a prediction
-router.delete('/user/:user/:id', async (req, res) => {
+router.delete('/:user/:id', async (req, res) => {
   try {
 
     const pred = await predictionsDb.findById({_id: req.params.id});
@@ -109,7 +109,6 @@ router.delete('/user/:user/:id', async (req, res) => {
     }
 
   } catch (err) {
-    //res.status(400).json({msg: 'Prediction cannot not be found'});
     res.status(500).json({msg: 'Server error'});
   }
 });
