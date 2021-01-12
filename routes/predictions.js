@@ -3,6 +3,8 @@ const predictionsDb = require('../model/predictions');
 const statModel = require('../statmodel/statmodel');
 const router = express.Router();
 
+// ROUTES FOR AN ADMIN
+
 // Get all the predictions
 router.get('/', async (req, res) => {
   try {
@@ -12,6 +14,31 @@ router.get('/', async (req, res) => {
     res.status(500).json({msg: 'Server error'});
   }
 });
+
+// Update a user's role
+router.patch('/', async (req, res) => {
+
+    // Avoid client error
+    if(!req.body.role) {
+      return res.json({msg: 'Please give a role.'})
+    }
+    if(!req.body.username) {
+      return res.json({msg: 'Please give a username.'})
+    }
+
+    try {
+      const prediction = await predictionsDb.find({'user.name': req.body.username});
+      await prediction.forEach((pred) => {pred.user.role = req.body.role;
+                                          pred.save()});
+      res.status(201).json({msg: `User's ${req.body.username} role updated to ${req.body.role}.`});
+    }
+    catch {
+      res.status(500).json({msg: 'Server error'});
+    }
+});
+
+
+// ROUTES FOR A USER
 
 // Get the predictions of a user
 router.get('/user/:user', async (req, res) => {
