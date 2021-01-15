@@ -2,9 +2,17 @@
 require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
+const expressLayouts = require('express-ejs-layouts');
 
 // Initialize the framework
 const app = express();
+
+// Views and layouts
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+app.set('layout', 'layouts/layout');
+app.use(expressLayouts);
+app.use(express.static('public'))
 
 // Connect to the database
 mongoose.connect(process.env.DATABASE_URL,{useUnifiedTopology: true,useNewUrlParser: true});
