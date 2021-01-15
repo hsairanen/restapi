@@ -4,16 +4,19 @@ const statModel = require('../statmodel/statmodel');
 const router = express.Router();
 
 // ROUTES FOR AN ADMIN
+router.get('/', (req, res) => {
+  res.render('index');
+})
 
 // Get all the predictions
-router.get('/', async (req, res) => {
+/*router.get('/', async (req, res) => {
   try {
     const allPredictions = await predictionsDb.find();
     res.json(allPredictions);
   } catch (err) {
     res.status(500).json({msg: 'Server error'});
   }
-});
+});*/
 
 // Update a user's role
 router.patch('/', async (req, res) => {

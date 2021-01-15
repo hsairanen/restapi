@@ -1,5 +1,9 @@
+if(process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 // Import frameworks and modules
-require('dotenv').config()
+//require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
@@ -25,7 +29,7 @@ app.use(express.json());
 
 // API Routes
 const predictions = require('./routes/predictions')
-app.use('/predictions', predictions)
+app.use('/', predictions)
 
 // Listen on a port
 const PORT = process.env.PORT || 5000;
