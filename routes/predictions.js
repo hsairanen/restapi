@@ -28,11 +28,18 @@ router.patch('/', async (req, res) => {
 
     try {
       const prediction = await predictionsDb.find({'user.name': req.body.username});
+
+      // If username cannot be found
+      if(prediction.length === 0) {
+        return res.json({msg: 'Username cannot not be found'});
+      }
+
       await prediction.forEach((pred) => {pred.user.role = req.body.role;
                                           pred.save()});
       res.status(201).json({msg: `User's ${req.body.username} role updated to ${req.body.role}.`});
     }
     catch {
+      // Server error
       res.status(500).json({msg: 'Server error'});
     }
 });
@@ -54,12 +61,13 @@ router.get('/:user', async (req, res) => {
     }
 });
 
-
 // Create a prediction
 router.post('/:user', async (req, res) => {
 
   // Avoid client error
-  if (typeof req.body.year !== "number" || req.body.year <= 0 || req.body.year % 1 !== 0) {
+  if(!req.body.year) {
+    return res.json({msg: 'Please give a year.'})
+  } else if (typeof req.body.year !== "number" || req.body.year <= 0 || req.body.year % 1 !== 0) {
     return res.json({msg: 'Year must be a positive integer.'});
   } else if (req.body.year > 0 & req.body.year < 2010) {
     return res.json({msg: 'Cannot predict a year earlier than 2010.'});
@@ -82,8 +90,6 @@ router.post('/:user', async (req, res) => {
     res.status(500).json({msg: 'Server error'});
   }
 });
-
-
 
 // Delete a prediction
 router.delete('/:user/:id', async (req, res) => {
