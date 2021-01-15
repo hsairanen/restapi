@@ -2,7 +2,7 @@
   "name": "restapi",
   "version": "1.0.0",
   "description": "LUT back-end, a course project",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
