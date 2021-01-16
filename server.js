@@ -6,6 +6,7 @@ if(process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
+const methodOverride = require('method-override');
 
 // Initialize the framework
 const app = express();
@@ -27,11 +28,14 @@ db.once('open', () => console.log('Connected to the database.'))
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+// Override method
+app.use(methodOverride('_method'));
+
 // API Routes
 const predictions = require('./routes/index')
 app.use('/', predictions)
 const editpreds = require('./routes/edit')
-app.use('/edit/', editpreds)
+app.use('/edit', editpreds)
 
 // Listen on a port
 const PORT = process.env.PORT || 5000;

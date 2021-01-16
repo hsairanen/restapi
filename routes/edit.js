@@ -17,8 +17,63 @@ router.get('/:id', async (req, res) => {
 });
 
 
-// Update a user's role
-router.patch('/', async (req, res) => {
+// Update a user role of a single prediction
+router.patch('/:id', async (req, res) => {
+
+    // Avoid client error
+    if(!req.body.role) {
+      return res.json({msg: 'Please give a role.'});
+    }
+
+    try {
+      const prediction = await predictionsDb.findById(req.params.id);
+      prediction.user.role = req.body.role;
+      await prediction.save();
+      res.status(201).redirect(`/edit/${req.params.id}`);
+    }
+    catch {
+      // Server error
+      res.status(500).json({msg: 'Server error'});
+    }
+});
+
+// Delete a prediction
+router.delete('/:id', async (req, res) => {
+  try {
+    const pred = await predictionsDb.findById({_id: req.params.id});
+    // Remove the prediction
+    await pred.remove();
+    res.redirect('/');
+  } catch (err) {
+    res.status(500).json({msg: 'Server error'});
+  }
+});
+
+// Delete a prediction of a user
+/*router.delete('/:user/:id', async (req, res) => {
+  try {
+
+    const pred = await predictionsDb.findById({_id: req.params.id});
+
+    // Remove the prediction
+    await pred.remove();
+
+    // Return the predictions left
+    const allPreds = await predictionsDb.find({user: req.params.user});
+
+    if(allPreds.length === 0) {
+      return res.json({msg: 'No predictions left'});
+    } else {
+      res.json(allPreds);
+    }
+
+  } catch (err) {
+    res.status(500).json({msg: 'Server error'});
+  }
+});
+
+// Update a user's role by a user
+router.patch('/:id', async (req, res) => {
 
     // Avoid client error
     if(!req.body.role) {
@@ -45,32 +100,6 @@ router.patch('/', async (req, res) => {
       res.status(500).json({msg: 'Server error'});
     }
 });
-// Delete a prediction
-router.delete('/:user/:id', async (req, res) => {
-  try {
-
-    const pred = await predictionsDb.findById({_id: req.params.id});
-
-    // Only the user who has made the prediction can delete it.
-    if(pred.user.name !== req.params.user || pred.length === 0) {
-      return res.json({msg: 'Prediction cannot not be found'});
-    }
-
-    // Remove the prediction
-    await pred.remove();
-
-    // Return the predictions left
-    const allPreds = await predictionsDb.find({user: req.params.user});
-
-    if(allPreds.length === 0) {
-      return res.json({msg: 'No predictions left'});
-    } else {
-      res.json(allPreds);
-    }
-
-  } catch (err) {
-    res.status(500).json({msg: 'Server error'});
-  }
-});
+*/
 
 module.exports = router;
