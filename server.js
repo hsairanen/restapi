@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 // API Routes
-const predictions = require('./routes/predictions')
+const predictions = require('./routes/index')
 app.use('/', predictions)
 
 // Listen on a port
