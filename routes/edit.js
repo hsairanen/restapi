@@ -16,7 +16,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-
 // Update a user role of a single prediction
 router.patch('/:id', async (req, res) => {
 

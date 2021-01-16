@@ -12,9 +12,9 @@
 <ul class="list-group">
 <% allPredictions.forEach(function (data) { %>
     <li class="list-group-item">
-      <h6>Population: <%=data.pred%></h6>
+      <h6>Estimated population: <%=data.pred%></h6>
       <a>Year: <%=data.year%></a><br>
-      <a>User: <%=data.user.name%></a><br>
+      <a>Date: <%=data.date%></a><br>
       <a href="/edit/<%=data._id%>">Edit</a>
     </li>
 <% }) %>

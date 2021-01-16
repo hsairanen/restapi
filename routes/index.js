@@ -3,13 +3,13 @@ const predictionsDb = require('../model/predictions');
 const statModel = require('../statmodel/statmodel');
 const router = express.Router();
 
-// ROUTES FOR CREATING AND VIEWING PREDICTIONS
-
 // Get all the predictions
 router.get('/', async (req, res) => {
   try {
-    const allPredictions = await predictionsDb.find();
-    //res.json(allPredictions);
+    // Sort the result by date
+    var mysort = {date: -1};
+    const allPredictions = await predictionsDb.find().sort(mysort);
+
     res.render('index.ejs', {
            allPredictions: allPredictions
     });
