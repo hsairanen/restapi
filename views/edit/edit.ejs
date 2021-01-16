@@ -1,0 +1,21 @@
+<h3>Prediction</h3>
+<ul class="list-group">
+    <li class="list-group-item">Population: <%=pred.pred%></li>
+    <li class="list-group-item">Year: <%=pred.year%></li>
+    <li class="list-group-item">User: <%=pred.user.name%></li>
+    <li class="list-group-item">Role: <%=pred.user.role%></li>
+    <li class="list-group-item">Date: <%=pred.date%></li>
+</ul><br>
+
+<p>Delete the prediction.</p>
+<form class="mb-4" action="" method="delete">
+  <input type="submit" value="Delete" class="btn btn-primary btn-block">
+</form>
+
+<form class="mb-4" action="" method="patch">
+  <div class="form-group">
+    <label for="role">Update the role.</label>
+    <input type="text" class="form-control" name="role">
+  </div><br>
+  <input type="submit" value="Update" class="btn btn-primary btn-block">
+</form>

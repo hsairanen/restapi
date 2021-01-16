@@ -30,6 +30,8 @@ app.use(express.urlencoded({extended: false}));
 // API Routes
 const predictions = require('./routes/index')
 app.use('/', predictions)
+const editpreds = require('./routes/edit')
+app.use('/edit/', editpreds)
 
 // Listen on a port
 const PORT = process.env.PORT || 5000;
