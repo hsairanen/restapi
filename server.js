@@ -3,7 +3,6 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 // Import frameworks and modules
-//require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
@@ -26,6 +25,7 @@ db.once('open', () => console.log('Connected to the database.'))
 
 // Body Parser Middleware
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 // API Routes
 const predictions = require('./routes/predictions')

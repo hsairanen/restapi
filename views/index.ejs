@@ -1,1 +1,18 @@
-Middle
+<form class="mb-4" action="/predictions" method="post">
+  <div class="form-group">
+    <label for="year">Year</label>
+    <input type="number" class="form-control" name="year" min=2010 max=2030>
+  </div><br>
+  <input type="submit" value="Predict" class="btn btn-primary btn-block">
+</form>
+
+<h3>Predictions</h3>
+<ul class="list-group">
+<% allPredictions.forEach(function (data) { %>
+    <li class="list-group-item">
+      user: <%=data.user.name%><br>
+      year: <%=data.year%><br>
+      population: <%=data.pred%>
+    </li>
+<% }) %>
+</ul>

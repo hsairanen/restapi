@@ -4,19 +4,19 @@ const statModel = require('../statmodel/statmodel');
 const router = express.Router();
 
 // ROUTES FOR AN ADMIN
-router.get('/', (req, res) => {
-  res.render('index');
-})
 
 // Get all the predictions
-/*router.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const allPredictions = await predictionsDb.find();
-    res.json(allPredictions);
+    //res.json(allPredictions);
+    res.render('index.ejs', {
+           allPredictions: allPredictions
+    });
   } catch (err) {
     res.status(500).json({msg: 'Server error'});
   }
-});*/
+});
 
 // Update a user's role
 router.patch('/', async (req, res) => {
@@ -70,7 +70,11 @@ router.post('/:user', async (req, res) => {
   // Avoid client error
   if(!req.body.year) {
     return res.json({msg: 'Please give a year.'})
-  } else if (typeof req.body.year !== "number" || req.body.year <= 0 || req.body.year % 1 !== 0) {
+  }
+
+  req.body.year = Number(req.body.year);
+
+  if (typeof req.body.year !== "number" || req.body.year <= 0 || req.body.year % 1 !== 0) {
     return res.json({msg: 'Year must be a positive integer.'});
   } else if (req.body.year > 0 & req.body.year < 2010) {
     return res.json({msg: 'Cannot predict a year earlier than 2010.'});
@@ -88,7 +92,9 @@ router.post('/:user', async (req, res) => {
     // Store into the database
     const newPred = await pred.save();
     // Return the pred and the year, if an object is successfully created.
-    res.status(201).json({pred: newPred.pred, year: newPred.year});
+    // res.status(201).json({pred: newPred.pred, year: newPred.year});
+    // Redirect to the home page
+    res.redirect('/')
   } catch (err) {
     res.status(500).json({msg: 'Server error'});
   }
