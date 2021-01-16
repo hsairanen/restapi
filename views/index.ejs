@@ -1,11 +1,9 @@
-<div>
-  Predict the Finnish population by giving a year between 2010 and 2030.
-</div><br>
+<p>Predict the Finnish population in 2010-2030.</p>
 
-<form class="mb-4" action="/predictions" method="post">
+<form class="mb-4" action="/visitor" method="post">
   <div class="form-group">
-    <label for="year">Year</label>
-    <input type="number" class="form-control" name="year" min=2010 max=2030>
+      <label for="year">Year</label>
+      <input type="number" class="form-control" name="year" min=2010 max=2030>
   </div><br>
   <input type="submit" value="Predict" class="btn btn-primary btn-block">
 </form>
@@ -14,9 +12,9 @@
 <ul class="list-group">
 <% allPredictions.forEach(function (data) { %>
     <li class="list-group-item">
-      user: <%=data.user.name%><br>
-      year: <%=data.year%><br>
-      population: <%=data.pred%><br>
+      <h6>Population: <%=data.pred%></h6>
+      <a>Year: <%=data.year%></a><br>
+      <a>User: <%=data.user.name%></a><br>
       <a href="/edit/<%=data._id%>">Edit</a>
     </li>
 <% }) %>
