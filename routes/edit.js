@@ -27,6 +27,7 @@ router.patch('/:id', async (req, res) => {
     try {
       const prediction = await predictionsDb.findById(req.params.id);
       prediction.user.role = req.body.role;
+      prediction.date = Date.now();
       await prediction.save();
       res.status(201).redirect(`/edit/${req.params.id}`);
     }
