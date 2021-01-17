@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
     // Sort the result by date
     var mysort = {date: -1};
     const allPredictions = await predictionsDb.find().sort(mysort);
-
     res.render('index.ejs', {
            allPredictions
     });
