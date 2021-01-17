@@ -5,7 +5,7 @@ const predSchema = new mongoose.Schema({
   pred: Number,
   year: Number,
   date: {type: Date, default: Date.now},
-  user: {name: String, role: {type: String, default: 'user'}}
+  user: {name: String, comment: {type: String, default: ""}}
 });
 
 const predModel = mongoose.model('predictions', predSchema);

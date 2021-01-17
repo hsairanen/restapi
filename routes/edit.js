@@ -16,17 +16,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Update a user role of a single prediction
+// Update the comment
 router.patch('/:id', async (req, res) => {
 
     // Avoid client error
-    if(!req.body.role) {
-      return res.json({msg: 'Please give a role.'});
+    if(!req.body.comment) {
+      return res.json({msg: 'Please leave a comment.'});
     }
 
     try {
       const prediction = await predictionsDb.findById(req.params.id);
-      prediction.user.role = req.body.role;
+      prediction.user.comment = req.body.comment;
       prediction.date = Date.now();
       await prediction.save();
       res.status(201).redirect(`/edit/${req.params.id}`);

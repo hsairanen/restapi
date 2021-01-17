@@ -6,18 +6,18 @@ db.predictions.insertMany([
 	 pred: 5512313,
 	 year: 2017,
 	 date: Date(),
-	 user: {name: 'heidi', role: 'admin'}
+	 user: {name: 'heidi', comment: 'The prediction seems right'}
 	},
 	{
 	 pred: 5520060,
 	 year: 2018,
 	 date: Date(),
-	 user: {name: 'heidi', role: 'admin'}
+	 user: {name: 'heidi', comment: 'The prediction seems right'}
 	},
 	{
 	 pred: 5524792,
 	 year: 2019,
 	 date: Date(),
-	 user: {name: 'heidi', role: 'admin'}
+	 user: {name: 'heidi', comment: 'The prediction seems right'}
 	}
 ])

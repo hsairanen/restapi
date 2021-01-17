@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     const allPredictions = await predictionsDb.find().sort(mysort);
 
     res.render('index.ejs', {
-           allPredictions: allPredictions
+           allPredictions
     });
   } catch (err) {
     res.status(500).json({msg: 'Server error'});

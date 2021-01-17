@@ -3,21 +3,20 @@
     <li class="list-group-item">Population: <%=pred.pred%></li>
     <li class="list-group-item">Year: <%=pred.year%></li>
     <li class="list-group-item">User: <%=pred.user.name%></li>
-    <li class="list-group-item">Role: <%=pred.user.role%></li>
+    <li class="list-group-item">Comment: <%=pred.user.comment%></li>
     <li class="list-group-item">Date: <%=pred.date%></li>
 </ul><br>
 
-<p>Delete the prediction.</p>
-<form class="mb-4" action="/edit/<%=pred._id%>?_method=DELETE" method="post">
-  <input type="submit" name="_method" value="Delete" class="btn btn-primary btn-block">
+<form class="mb-4" action="/edit/<%=pred._id%>?_method=PATCH" method="post">
+      <div class="form-group">
+        <input type="text" class="form-control" name="role" placeholder="Leave Comment">
+      </div><br>
+      <input type="submit" value="Update" class="btn btn-primary btn-block" name = "_method">
 </form>
 
-<form class="mb-4" action="/edit/<%=pred._id%>?_method=PATCH" method="post">
-  <div class="form-group">
-    <label for="role">Update the role.</label>
-    <input type="text" class="form-control" name="role">
-  </div><br>
-  <input type="submit" value="Update" class="btn btn-primary btn-block" name = "_method">
+<p>Delete the prediction.</p>
+<form class="mb-4" action="/edit/<%=pred._id%>?_method=DELETE" method="post">
+    <input type="submit" name="_method" value="Delete" class="btn btn-primary btn-block">
 </form>
 
 <a href="/">Back</a>
